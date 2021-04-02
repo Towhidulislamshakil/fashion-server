@@ -20,8 +20,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 
-app.get('/', function (req, res) {
-  res.send('hello world')
+app.get('/', (req, res) => {
+  res.send('hello from db,it warking')
 })
 
 
