@@ -34,7 +34,6 @@ client.connect(err => {
   const volunteerCollection = client.db("fashionup").collection("events");
   const volunteeringInfo = client.db("fashionup").collection("events");
   console.log("Database connected Successfully")
-
   // data send to the database
 
   app.post('/volunteer', (req, res) => {
