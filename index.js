@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser')
 const objectId = require('mongodb').ObjectID;
 const MongoClient = require('mongodb').MongoClient;
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.q3vod.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.sywml.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 console.log(process.env.DB_NAME)
@@ -18,6 +18,8 @@ const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
+
+
 
 
 app.get('/', (req, res) => {
@@ -35,15 +37,16 @@ client.connect(err => {
 
   // data send to the database
 
-  // app.post('/volunteer', (req, res) => {
-  //   const volunteers = req.body;
-  //   // console.log(volunteers)
-  //   volunteerCollection.insertMany(volunteers)
-  //     .then(result => {
-  //       // console.log(result.insertedCount)
-  //       res.send(result.insertedCount)
-  //     })
-  // })
+  app.post('/volunteer', (req, res) => {
+    const volunteers = req.body;
+    console.log(volunteers)
+    volunteerCollection.insertMany(volunteers)
+      .then(result => {
+        res.send(result.insertedCount)
+        console.log(result.insertedCount)
+      })
+  })
+
 
   // data received from database
 
@@ -53,6 +56,16 @@ client.connect(err => {
         res.send(documents)
       })
   })
+
+//   var hex = /[0-9A-Fa-f]{6}/g;
+// var id = (hex.test(id))? objectId(id) : id;
+// volunteerCollection.findOne({'_id': objectId(id)}, function(error,doc) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log(null, doc);
+//   }
+// });
 
   app.get("/volunteering/:id", (req, res) => {
     volunteerCollection.find({ _id: objectId(req.params.id) })
