@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 
 
 app.get('/', (req, res) => {
-  res.send('hello from db,it warking')
+  res.send('hello from db,it warking good')
 })
 
 
